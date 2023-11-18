@@ -1,0 +1,33 @@
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
+from django.db import models
+from rest_framework import serializers
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password')
+        extra_kwargs = {
+            'id': {
+                'read_only': True
+            },
+            'password': {
+                'write_only': True
+            }
+        }
+
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data.pop('password'))
+        return User.objects.create(**validated_data)
+
+    def update(self, instance: models.Model, validated_data: dict):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        if 'password' in validated_data:
+            instance.password = make_password(validated_data['password'])
+
+        instance.save()
+
+        return instance
