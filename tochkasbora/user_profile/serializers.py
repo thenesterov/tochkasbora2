@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from rest_framework import serializers
 
+from interest.models import Interest
 from user_profile.models import UserProfile
 
 
@@ -36,6 +37,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    interests = serializers.PrimaryKeyRelatedField(queryset=Interest.objects.all(), many=True)
+
     class Meta:
         model = UserProfile
         fields = (
@@ -48,6 +51,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'avatar_path',
             'rate',
             'sex',
+            'interests',
             'is_organizer'
         )
         extra_kwargs = {

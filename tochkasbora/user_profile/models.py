@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from interest.models import Interest
+
 
 class UserProfile(models.Model):
     SEXES = [
@@ -17,6 +19,7 @@ class UserProfile(models.Model):
     avatar_path = models.URLField(null=True)
     rate = models.FloatField(default=0.0)
     sex = models.CharField(max_length=7, choices=SEXES)
+    interests = models.ManyToManyField(Interest)
     is_organizer = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
