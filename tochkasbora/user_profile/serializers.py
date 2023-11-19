@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from rest_framework import serializers
 
+from user_profile.models import UserProfile
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,3 +33,28 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = (
+            'user_id',
+            'first_name',
+            'last_name',
+            'email',
+            'about',
+            'birthday',
+            'avatar_path',
+            'rate',
+            'sex',
+            'is_organizer'
+        )
+        extra_kwargs = {
+            'rate': {
+                'read_only': True
+            },
+            'is_organizer': {
+                'read_only': True
+            }
+        }

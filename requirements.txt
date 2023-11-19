@@ -2,3 +2,4 @@ django
 djangorestframework
 django-stubs
 djangorestframework-simplejwt
+python-dotenv
