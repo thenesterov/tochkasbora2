@@ -86,7 +86,7 @@ class ListCreateUserProfileAPIView(APIView):
             user_profile_sr.save()
 
             try:
-                user: User = User.objects.get(id=request.data.get('user_id'))
+                user: User = User.objects.get(id=request.data.get('user_id'))  #TODO: maybe error if user_id != id
             except User.DoesNotExist:
                 return Response({'error': f'User with user_id={request.data.get("user_id")} does not exist'}, status=400)
 

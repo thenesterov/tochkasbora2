@@ -21,9 +21,9 @@ class UserProfile(models.Model):
     sex = models.CharField(max_length=7, choices=SEXES)
     interests = models.ManyToManyField(Interest)
     is_organizer = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
