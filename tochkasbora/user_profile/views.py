@@ -27,7 +27,7 @@ class ListCreateUserAPIView(APIView):
             return Response(data=user_sr.data)
 
     def get(self, request: Request):
-        users = User.objects.all()
+        users = User.objects.filter(deleted_at__isnull=True)
 
         return Response(data=UserSerializer(users, many=True).data)
 
@@ -110,7 +110,7 @@ class ListCreateUserProfileAPIView(APIView):
         return Response(data={'error': 'Wrong parameters'})
 
     def get(self, request: Request):
-        users_profile = UserProfile.objects.all()
+        users_profile = UserProfile.objects.filter(deleted_at__isnull=True)
 
         return Response(data=UserProfileSerializer(users_profile, many=True).data)
 

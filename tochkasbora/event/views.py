@@ -35,7 +35,7 @@ class ListCreateEventAPIView(APIView):
         return Response(data={'error': 'Wrong parameters'})
 
     def get(self, request: Request):
-        events = Event.objects.all()
+        events = Event.objects.filter(deleted_at__isnull=True)
 
         return Response(data=EventSerializer(events, many=True).data)
 
