@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'user_profile.apps.UserProfileConfig',
     'interest.apps.InterestConfig',
+    'event.apps.EventConfig',
 
     'rest_framework',
     'rest_framework_simplejwt',
