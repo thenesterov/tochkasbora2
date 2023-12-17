@@ -98,7 +98,7 @@ class RetrieveUpdateDestroyEventAPIView(APIView):
 
         request_data['organizer_id'] = user_profile.pk
 
-        event_sr = EventSerializer(data=request_data)
+        event_sr = EventSerializer(event, data=request_data)
 
         if event_sr.is_valid(raise_exception=True):
             event_sr.save()
@@ -184,4 +184,3 @@ class MyEventsAPIView(APIView):
             return Response({'error': f'Events does not exist'}, status=400)
 
         return Response(data=EventSerializer(events, many=True).data)
-
